@@ -8,12 +8,32 @@
     <artifactId>leo-vetnotes</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>decipher</id>
+            <url>http://decipher.chpc.utah.edu/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.9.10</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>gov.va.vinci.leo</groupId>
+            <artifactId>leo-base</artifactId>
+            <version>2016.05.2</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.48</version>
         </dependency>
 
         <dependency>
