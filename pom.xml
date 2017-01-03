@@ -42,6 +42,12 @@
         </dependency>
 
         <dependency>
+            <groupId>gov.va.vinci</groupId>
+            <artifactId>leo-context</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.uima</groupId>
             <artifactId>uimaj-as-core</artifactId>
             <version>${uima.version}</version>

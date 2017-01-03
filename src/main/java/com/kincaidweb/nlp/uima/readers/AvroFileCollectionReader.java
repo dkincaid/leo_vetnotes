@@ -2,6 +2,7 @@ package com.kincaidweb.nlp.uima.readers;
 
 import avro.shaded.com.google.common.base.Throwables;
 import gov.va.vinci.leo.cr.BaseLeoCollectionReader;
+import gov.va.vinci.leo.descriptors.LeoConfigurationParameter;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -28,18 +30,33 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class AvroFileCollectionReader extends BaseLeoCollectionReader {
     private static final Logger logger = LoggerFactory.getLogger(AvroFileCollectionReader.class);
 
-    private final Queue<Path> paths;
+    private Queue<Path> paths;
     private DataFileReader<GenericRecord> dataFileReader;
-    private final String textFieldName;
-    private final String idFieldName;
+
+    @LeoConfigurationParameter(mandatory = true)
+    private String textFieldName;
+
+    @LeoConfigurationParameter
+    private String idFieldName;
+
+    @LeoConfigurationParameter(mandatory = true)
+    private String avroDir;
+
+    public AvroFileCollectionReader() {
+
+    }
 
     /**
+     *
      * Creates the reader with a document id field. Be sure to pass in the field names in the Avro file for the
      * textField and document id.
      */
-    public AvroFileCollectionReader(String textFieldName, String idFieldName, Path avroPath) {
+    public AvroFileCollectionReader(String textFieldName, String idFieldName, String avroDir) {
         this.textFieldName = textFieldName;
         this.idFieldName = idFieldName;
+        this.avroDir = avroDir;
+
+        Path avroPath = Paths.get(avroDir);
 
         paths = new ConcurrentLinkedQueue<>();
 
@@ -56,9 +73,12 @@ public class AvroFileCollectionReader extends BaseLeoCollectionReader {
      * Creates the reader without a document id field. Be sure to pass in the field name in the Avro file for the
      * textField.
      */
-    public AvroFileCollectionReader(String textFieldName, Path avroPath) {
+    public AvroFileCollectionReader(String textFieldName, String avroDir) {
         this.textFieldName = textFieldName;
         this.idFieldName = null;
+        this.avroDir = avroDir;
+
+        Path avroPath = Paths.get(avroDir);
 
         paths = new ConcurrentLinkedQueue<>();
 
