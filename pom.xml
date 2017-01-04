@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <uima.version>2.9.0</uima.version>
+        <uima.version>2.6.0</uima.version>
         <ctakes.version>3.2.3-SNAPSHOT</ctakes.version>
         <leo.version>2016.05.2</leo.version>
         <slf4j.version>1.7.21</slf4j.version>

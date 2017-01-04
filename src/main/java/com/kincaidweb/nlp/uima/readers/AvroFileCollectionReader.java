@@ -11,6 +11,7 @@ import org.apache.ctakes.typesystem.type.structured.DocumentID;
 import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
 import org.apache.uima.collection.CollectionException;
+import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class AvroFileCollectionReader extends BaseLeoCollectionReader {
     private static final Logger logger = LoggerFactory.getLogger(AvroFileCollectionReader.class);
 
-    private Queue<Path> paths;
-    private DataFileReader<GenericRecord> dataFileReader;
-
     @LeoConfigurationParameter(mandatory = true)
     private String textFieldName;
 
@@ -42,7 +40,10 @@ public class AvroFileCollectionReader extends BaseLeoCollectionReader {
     @LeoConfigurationParameter(mandatory = true)
     private String avroDir;
 
-    public AvroFileCollectionReader() {
+    private Queue<Path> paths;
+    private DataFileReader<GenericRecord> dataFileReader;
+
+     public AvroFileCollectionReader() {
 
     }
 
@@ -55,18 +56,6 @@ public class AvroFileCollectionReader extends BaseLeoCollectionReader {
         this.textFieldName = textFieldName;
         this.idFieldName = idFieldName;
         this.avroDir = avroDir;
-
-        Path avroPath = Paths.get(avroDir);
-
-        paths = new ConcurrentLinkedQueue<>();
-
-        if (Files.isDirectory(avroPath)) {
-            paths.addAll(getFiles(avroPath));
-        } else {
-            paths.add(avroPath);
-        }
-
-        dataFileReader = openReader(paths.remove());
     }
 
     /**
@@ -77,9 +66,18 @@ public class AvroFileCollectionReader extends BaseLeoCollectionReader {
         this.textFieldName = textFieldName;
         this.idFieldName = null;
         this.avroDir = avroDir;
+    }
+
+    @Override
+    public void initialize() {
+        try {
+            super.initialize();
+        } catch (ResourceInitializationException e) {
+            logger.error("Error initializing {}! {}", this.getClass().getName(), e);
+            throw Throwables.propagate(e);
+        }
 
         Path avroPath = Paths.get(avroDir);
-
         paths = new ConcurrentLinkedQueue<>();
 
         if (Files.isDirectory(avroPath)) {
@@ -160,5 +158,32 @@ public class AvroFileCollectionReader extends BaseLeoCollectionReader {
         } catch (IOException e) {
             logger.warn("IOException while closing the Avro file! {}", e);
         }
+    }
+
+    public String getTextFieldName() {
+        return textFieldName;
+    }
+
+    public AvroFileCollectionReader setTextFieldName(String textFieldName) {
+        this.textFieldName = textFieldName;
+        return this;
+    }
+
+    public String getIdFieldName() {
+        return idFieldName;
+    }
+
+    public AvroFileCollectionReader setIdFieldName(String idFieldName) {
+        this.idFieldName = idFieldName;
+        return this;
+    }
+
+    public String getAvroDir() {
+        return avroDir;
+    }
+
+    public AvroFileCollectionReader setAvroDir(String avroDir) {
+        this.avroDir = avroDir;
+        return this;
     }
 }

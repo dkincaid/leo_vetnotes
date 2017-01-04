@@ -46,7 +46,7 @@ public class CommandLineClient {
     private String textFieldName = "mnText";
 
     @Parameter(names = {"-idFieldName"}, description = "The name of the field in the Avro file containing the document id.")
-    private String idFieldName = "id";
+    private String idFieldName = "mnRowKey";
 
 
     public void run() {
@@ -75,7 +75,7 @@ public class CommandLineClient {
         leoClient.setCasPoolSize(casPoolSize);
         leoClient.setCCTimeout(ccTimeout);
 
-        logger.info("Starting to read files and submit to the service.");
+        logger.info("Starting to read files from {} and submit to the service. Results will be written to {}.", inputFile, outputPath);
         try {
             leoClient.run();
         } catch (Exception e) {

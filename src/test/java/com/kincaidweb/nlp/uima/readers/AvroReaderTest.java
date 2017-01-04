@@ -28,7 +28,9 @@ public class AvroReaderTest {
 
     @Test
     public void testDirectoryRead() throws IOException, UIMAException {
-        AvroFileCollectionReader fileCollectionReader = new AvroFileCollectionReader("mnText", inputDirectory);
+        AvroFileCollectionReader fileCollectionReader =
+                (AvroFileCollectionReader) new AvroFileCollectionReader("mnText", inputDirectory)
+                        .produceCollectionReader();
 
         int recordCount = 0;
         JCas jCas = JCasFactory.createJCas();
@@ -44,7 +46,9 @@ public class AvroReaderTest {
     @Test
     public void testSingleRecordRead() throws IOException, UIMAException {
         Path path = Paths.get(inputDirectory, "sample-mednotes.avro");
-        AvroFileCollectionReader fileCollectionReader = new AvroFileCollectionReader("mnText", path.toString());
+        AvroFileCollectionReader fileCollectionReader =
+                (AvroFileCollectionReader) new AvroFileCollectionReader("mnText", path.toString())
+                        .produceCollectionReader();
 
         int recordCount = 0;
         JCas jCas = JCasFactory.createJCas();
