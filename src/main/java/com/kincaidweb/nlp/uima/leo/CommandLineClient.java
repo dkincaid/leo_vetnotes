@@ -75,6 +75,7 @@ public class CommandLineClient {
         leoClient.setCasPoolSize(casPoolSize);
         leoClient.setCCTimeout(ccTimeout);
 
+
         logger.info("Starting to read files from {} and submit to the service. Results will be written to {}.", inputFile, outputPath);
         try {
             leoClient.run();
