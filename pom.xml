@@ -59,7 +59,7 @@
             <version>${uima.version}</version>
         </dependency>
 
-        <!-- *********** CTAKES DEPENDENCIES *********************** -->
+<!-- *********** CTAKES DEPENDENCIES *********************** -->
         <dependency>
             <groupId>org.apache.ctakes</groupId>
             <artifactId>ctakes-type-system</artifactId>

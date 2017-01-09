@@ -19,19 +19,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Command line version of the client program
+ * A Leo client which reads documents from an Avro file and writes the resulting CAS objects to XMI files.
  */
-public class CommandLineClient {
-    private static final Logger logger = LoggerFactory.getLogger(CommandLineClient.class);
+public class AvroToXmiClient {
+    private static final Logger logger = LoggerFactory.getLogger(AvroToXmiClient.class);
 
     @Parameter(names = { "-brokerUrl"}, description = "The URL of the broker application", converter = URIConverter.class)
     private URI broker = URI.create("tcp://localhost:61616");
 
-    @Parameter(names = { "-endpoint"}, description = "The name of the endpoint.")
+    @Parameter(names = { "-endpoint"}, description = "The name of the broker endpoint.")
     private String endpoint = "leoQueueName";
 
-    @Parameter(names = {"-casPoolSize"}, description = "The CAS pool size.")
-    private Integer casPoolSize = 4;
+    @Parameter(names = {"-casPoolSize"}, description = "The CAS pool size. Make sure this is big enough. It should match at least the number of instances of the service the client is connecting to.")
+    private Integer casPoolSize = 5;
 
     @Parameter(names = {"-ccTimeout"}, description = "The CC timeout value.")
     private Integer ccTimeout = 1000;
@@ -88,9 +88,9 @@ public class CommandLineClient {
 
 
     public static void main(String[] args) {
-        CommandLineClient commandLineClient = new CommandLineClient();
-        new JCommander(commandLineClient, args);
-        commandLineClient.run();
+        AvroToXmiClient avroToXmiClient = new AvroToXmiClient();
+        new JCommander(avroToXmiClient, args);
+        avroToXmiClient.run();
     }
 
     public static final class URIConverter implements IStringConverter<URI> {

@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 
 /**
- * Created by davek on 1/1/17.
+ * Leo UIMA-AS service which runs a cTAKES pipeline.
  */
-public class CommandLineService {
-    private static final Logger logger = LoggerFactory.getLogger(CommandLineService.class);
+public class CtakesPipelineService {
+    private static final Logger logger = LoggerFactory.getLogger(CtakesPipelineService.class);
 
     @Parameter(names = {"-brokerUrl"}, description = "The URL of the broker service.")
     private URI brokerUri = URI.create("tcp://localhost:61616");
@@ -191,8 +191,8 @@ public class CommandLineService {
     }
 
     public static void main(String[] args) {
-        CommandLineService commandLineService = new CommandLineService();
-        new JCommander(commandLineService, args);
-        commandLineService.run();
+        CtakesPipelineService ctakesPipelineService = new CtakesPipelineService();
+        new JCommander(ctakesPipelineService, args);
+        ctakesPipelineService.run();
     }
 }
