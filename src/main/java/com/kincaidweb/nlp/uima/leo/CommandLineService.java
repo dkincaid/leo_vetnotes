@@ -15,6 +15,7 @@ import org.apache.ctakes.core.ae.SentenceDetector;
 import org.apache.ctakes.core.ae.SimpleSegmentAnnotator;
 import org.apache.ctakes.core.ae.TokenizerAnnotatorPTB;
 import org.apache.ctakes.dictionary.lookup2.ae.DefaultJCasTermAnnotator;
+import org.apache.ctakes.lvg.ae.LvgAnnotator;
 import org.apache.ctakes.postagger.POSTagger;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.slf4j.Logger;
@@ -35,10 +36,13 @@ public class CommandLineService {
     private String endpoint = "leoQueueName";
 
     @Parameter(names = {"-casPoolSize"}, description = "The CAS pool size.")
-    private Integer casPoolSize = 4;
+    private Integer casPoolSize = 5;
 
     @Parameter(names = {"-ccTimeout"}, description = "The CC timeout value.")
     private Integer ccTimeout = 1000;
+
+    @Parameter(names = {"-numInstances"}, description = "The number of instance to run.")
+    private Integer numInstances = 5;
 
     @Parameter(names = {"-dictionaryDescriptor"}, description = "The location of the dictionary descriptor XML file.")
     private String dictionaryDescriptor;
@@ -56,7 +60,7 @@ public class CommandLineService {
             service.setCCTimeout(ccTimeout);
 
             LeoTypeSystemDescription typeSystem = new LeoTypeSystemDescription(TypeSystemFactory.generateTypeSystemDescription(
-                    "/home/davek/src/other-peoples/ctakes/ctakes-type-system/target/classes/org/apache/ctakes/typesystem/types/TypeSystem.xml", false));
+                    "org/apache/ctakes/typesystem/types/TypeSystem", true));
 
             LeoAEDescriptor pipeline = getPipelineDescriptor(typeSystem);
 
@@ -91,6 +95,9 @@ public class CommandLineService {
         LeoAEDescriptor tokenizerDescriptor = new LeoAEDescriptor(
                 "Tokenizer", TokenizerAnnotatorPTB.class.getName());
         tokenizerDescriptor.setTypeSystemDescription(typeSystem);
+
+        LeoAEDescriptor lvgAnnotator = new LeoAEDescriptor("LvgAnnotator", LvgAnnotator.class.getName());
+        lvgAnnotator.setTypeSystemDescription(typeSystem);
 
         LeoAEDescriptor contextDependentTokenizer = new LeoAEDescriptor(
                 "ContextDependentTokenizer", ContextDependentTokenizerAnnotator.class.getName());
@@ -165,6 +172,7 @@ public class CommandLineService {
         pipeline.addDelegate(simpleSegmentAnnotator);
         pipeline.addDelegate(sentenceDetectorDescriptor);
         pipeline.addDelegate(tokenizerDescriptor);
+        //pipeline.addDelegate(lvgAnnotator);
         pipeline.addDelegate(contextDependentTokenizer);
         pipeline.addDelegate(posTagger);
         pipeline.addDelegate(chunker);
@@ -178,7 +186,7 @@ public class CommandLineService {
         pipeline.addDelegate(uncertaintyAssertion);
 
         pipeline.setIsAsync(false);
-        pipeline.setNumberOfInstances(5);
+        pipeline.setNumberOfInstances(numInstances);
         return pipeline;
     }
 
