@@ -24,30 +24,32 @@ import java.nio.file.Paths;
 public class AvroToXmiClient {
     private static final Logger logger = LoggerFactory.getLogger(AvroToXmiClient.class);
 
-    @Parameter(names = { "-brokerUrl"}, description = "The URL of the broker application", converter = URIConverter.class)
+    @Parameter(names = { "-b", "--brokerUrl"}, description = "The URL of the broker application", converter = URIConverter.class)
     private URI broker = URI.create("tcp://localhost:61616");
 
-    @Parameter(names = { "-endpoint"}, description = "The name of the broker endpoint.")
+    @Parameter(names = { "-e", "--endpoint"}, description = "The name of the broker endpoint.")
     private String endpoint = "leoQueueName";
 
-    @Parameter(names = {"-casPoolSize"}, description = "The CAS pool size. Make sure this is big enough. It should match at least the number of instances of the service the client is connecting to.")
+    @Parameter(names = {"--casPoolSize"}, description = "The CAS pool size. Make sure this is big enough. It should match at least the number of instances of the service the client is connecting to.")
     private Integer casPoolSize = 5;
 
-    @Parameter(names = {"-ccTimeout"}, description = "The CC timeout value.")
+    @Parameter(names = {"--ccTimeout"}, description = "The CC timeout value.")
     private Integer ccTimeout = 1000;
 
-    @Parameter(names = {"-inputFile"}, description = "The path to the input file or files.")
+    @Parameter(names = {"-i", "--inputFile"}, description = "The path to the input file or files.", required = true)
     private String inputFile;
 
-    @Parameter(names = {"-outputDir"}, description = "The output directory for the annotated XMI files.")
+    @Parameter(names = {"-o", "--outputDir"}, description = "The output directory for the annotated XMI files.")
     private String outputDir;
 
-    @Parameter(names = {"-textFieldName"}, description = "The name of the field in the Avro file containing the text.")
+    @Parameter(names = {"--textFieldName"}, description = "The name of the field in the Avro file containing the text.")
     private String textFieldName = "mnText";
 
-    @Parameter(names = {"-idFieldName"}, description = "The name of the field in the Avro file containing the document id.")
+    @Parameter(names = {"--idFieldName"}, description = "The name of the field in the Avro file containing the document id.")
     private String idFieldName = "mnRowKey";
 
+    @Parameter(names = {"-h", "--help"}, help = true)
+    private boolean help;
 
     public void run() {
         BaseLeoCollectionReader reader = new AvroFileCollectionReader(textFieldName, idFieldName, inputFile);
@@ -86,10 +88,22 @@ public class AvroToXmiClient {
         logger.info("Client finished reading documents and receiving annotations.");
     }
 
-
     public static void main(String[] args) {
         AvroToXmiClient avroToXmiClient = new AvroToXmiClient();
-        new JCommander(avroToXmiClient, args);
+        JCommander jCommander = new JCommander(avroToXmiClient, args);
+        jCommander.setProgramName(AvroToXmiClient.class.getSimpleName());
+
+        if (avroToXmiClient.help) {
+            jCommander.usage();
+            System.exit(0);
+        }
+
+        if (avroToXmiClient.inputFile == null) {
+            System.err.println("-inputFile parameter must be provided!");
+            jCommander.usage();
+            System.exit(1);
+        }
+
         avroToXmiClient.run();
     }
 

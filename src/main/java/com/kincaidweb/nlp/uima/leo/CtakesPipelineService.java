@@ -29,24 +29,26 @@ import java.net.URI;
 public class CtakesPipelineService {
     private static final Logger logger = LoggerFactory.getLogger(CtakesPipelineService.class);
 
-    @Parameter(names = {"-brokerUrl"}, description = "The URL of the broker service.")
+    @Parameter(names = {"-b", "--brokerUrl"}, description = "The URL of the broker service.")
     private URI brokerUri = URI.create("tcp://localhost:61616");
 
-    @Parameter(names = {"-endpoint"}, description = "The endpoint name in the broker service to use.")
+    @Parameter(names = {"-e", "--endpoint"}, description = "The endpoint name in the broker service to use.")
     private String endpoint = "leoQueueName";
 
-    @Parameter(names = {"-casPoolSize"}, description = "The CAS pool size.")
+    @Parameter(names = {"--casPoolSize"}, description = "The CAS pool size.")
     private Integer casPoolSize = 5;
 
-    @Parameter(names = {"-ccTimeout"}, description = "The CC timeout value.")
+    @Parameter(names = {"--ccTimeout"}, description = "The CC timeout value.")
     private Integer ccTimeout = 1000;
 
-    @Parameter(names = {"-numInstances"}, description = "The number of instance to run.")
+    @Parameter(names = {"--numInstances"}, description = "The number of instance to run.")
     private Integer numInstances = 5;
 
     @Parameter(names = {"-dictionaryDescriptor"}, description = "The location of the dictionary descriptor XML file.")
     private String dictionaryDescriptor;
 
+    @Parameter(names = {"-h", "--help"}, help = true)
+    private boolean help;
 
     public void run() {
         Service service = null;
@@ -182,7 +184,7 @@ public class CtakesPipelineService {
         pipeline.addDelegate(genericAssertion);
         pipeline.addDelegate(historyAssertion);
         pipeline.addDelegate(polarityAssertion);
-        pipeline.addDelegate(subjectAssertion);
+        //pipeline.addDelegate(subjectAssertion); this causes NPE's inside DependencyUtility.getPath()
         pipeline.addDelegate(uncertaintyAssertion);
 
         pipeline.setIsAsync(false);
@@ -192,7 +194,14 @@ public class CtakesPipelineService {
 
     public static void main(String[] args) {
         CtakesPipelineService ctakesPipelineService = new CtakesPipelineService();
-        new JCommander(ctakesPipelineService, args);
+        JCommander jCommander = new JCommander(ctakesPipelineService, args);
+        jCommander.setProgramName(AvroToXmiClient.class.getSimpleName());
+
+        if (ctakesPipelineService.help) {
+            jCommander.usage();
+            System.exit(0);
+        }
+
         ctakesPipelineService.run();
     }
 }
