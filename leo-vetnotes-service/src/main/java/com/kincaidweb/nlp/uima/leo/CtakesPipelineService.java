@@ -1,8 +1,8 @@
 package com.kincaidweb.nlp.uima.leo;
 
-import avro.shaded.com.google.common.base.Throwables;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.google.common.base.Throwables;
 import gov.va.vinci.leo.Service;
 import gov.va.vinci.leo.descriptors.LeoAEDescriptor;
 import gov.va.vinci.leo.descriptors.LeoTypeSystemDescription;
@@ -195,7 +195,7 @@ public class CtakesPipelineService {
     public static void main(String[] args) {
         CtakesPipelineService ctakesPipelineService = new CtakesPipelineService();
         JCommander jCommander = new JCommander(ctakesPipelineService, args);
-        jCommander.setProgramName(AvroToXmiClient.class.getSimpleName());
+        jCommander.setProgramName(CtakesPipelineService.class.getSimpleName());
 
         if (ctakesPipelineService.help) {
             jCommander.usage();

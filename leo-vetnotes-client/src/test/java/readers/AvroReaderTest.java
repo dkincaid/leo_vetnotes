@@ -1,16 +1,16 @@
-package com.kincaidweb.nlp.uima.readers;
+package readers;
 
+import com.kincaidweb.nlp.uima.readers.readers.AvroFileCollectionReader;
 import org.apache.uima.UIMAException;
 import org.apache.uima.fit.factory.JCasFactory;
 import org.apache.uima.jcas.JCas;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import static org.testng.Assert.assertEquals;
 
 /**
  * Created by davek on 1/1/17.
@@ -40,7 +40,7 @@ public class AvroReaderTest {
             recordCount++;
         }
 
-        assertEquals(recordCount, 30);
+        Assert.assertEquals(recordCount, 30);
     }
 
     @Test
@@ -58,6 +58,6 @@ public class AvroReaderTest {
             recordCount++;
         }
 
-        assertEquals(recordCount, 15);
+        Assert.assertEquals(recordCount, 15);
     }
 }

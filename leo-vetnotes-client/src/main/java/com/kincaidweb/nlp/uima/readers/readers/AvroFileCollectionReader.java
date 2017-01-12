@@ -1,4 +1,4 @@
-package com.kincaidweb.nlp.uima.readers;
+package com.kincaidweb.nlp.uima.readers.readers;
 
 import avro.shaded.com.google.common.base.Throwables;
 import gov.va.vinci.leo.cr.BaseLeoCollectionReader;

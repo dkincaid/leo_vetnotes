@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+
+    <appender name="CA" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-4r [%t] %-5p %c %x - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.apache.ctakes">
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="org.apache.uima">
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="AbstractJCasTermAnnotator">
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="JdbcConceptFactory">
+        <level value="WARN"/>
+    </logger>
+
+    <root>
+        <priority value="INFO"/> <!--Notice this disables all logging-->
+        <appender-ref ref="CA"/>
+    </root>
+
+</log4j:configuration>

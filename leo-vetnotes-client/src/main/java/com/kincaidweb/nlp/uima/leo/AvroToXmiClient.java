@@ -4,7 +4,7 @@ import avro.shaded.com.google.common.base.Throwables;
 import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.kincaidweb.nlp.uima.readers.AvroFileCollectionReader;
+import com.kincaidweb.nlp.uima.readers.readers.AvroFileCollectionReader;
 import gov.va.vinci.leo.Client;
 import gov.va.vinci.leo.cr.BaseLeoCollectionReader;
 import gov.va.vinci.leo.listener.SimpleXmiListener;

@@ -6,12 +6,17 @@
 
     <groupId>com.kincaidweb</groupId>
     <artifactId>leo-vetnotes</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>leo-vetnotes-client</module>
+        <module>leo-vetnotes-service</module>
+    </modules>
 
     <properties>
         <uima.version>2.6.0</uima.version>
         <ctakes.version>3.2.3-SNAPSHOT</ctakes.version>
-        <leo.version>2016.05.2</leo.version>
+        <leo.version>2017.01.2</leo.version>
         <slf4j.version>1.7.21</slf4j.version>
         <guava.version>19.0</guava.version>
         <avro.version>1.8.1</avro.version>
@@ -34,140 +39,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>gov.va.vinci.leo</groupId>
-            <artifactId>leo-base</artifactId>
-            <version>${leo.version}</version>
-            <type>pom</type>
-        </dependency>
-
-        <dependency>
-            <groupId>gov.va.vinci</groupId>
-            <artifactId>leo-context</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.uima</groupId>
-            <artifactId>uimaj-as-core</artifactId>
-            <version>${uima.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.uima</groupId>
-            <artifactId>uimaj-core</artifactId>
-            <version>${uima.version}</version>
-        </dependency>
-
-<!-- *********** CTAKES DEPENDENCIES *********************** -->
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-type-system</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-core</artifactId>
-            <version>3.2.3-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-core-res</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-context-tokenizer</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-pos-tagger</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-pos-tagger-res</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-chunker</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-chunker-res</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-dictionary-lookup-fast</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-dictionary-lookup-fast-res</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-assertion</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-assertion-res</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <!-- The following 4 dependenciess are Needed for the ctakes assertion module -->
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-dependency-parser</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.ctakes</groupId>
-            <artifactId>ctakes-constituency-parser</artifactId>
-            <version>${ctakes.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.cleartk</groupId>
-            <artifactId>cleartk-ml-liblinear</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-
         <!-- Other dependencies -->
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
             <version>${jcommander.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>${avro.version}</version>
         </dependency>
 
         <dependency>
@@ -200,28 +76,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 
