@@ -23,9 +23,10 @@ docker run -p 61616:61616 --net leonet --name leo-broker \
 ```
 
 ## Service
-Make sure to set the `brokerUrl` to the ip address of the broker
+Make sure to set the `brokerUrl` to the ip address of the broker and replace the two instances of CHANGEME with your UMLS user name and password.
 ```bash
 docker run --net leonet --name ctakes-service \
+  -e "ctakes.umlsuser=CHANGEME" -e "ctakes.umlspw=CHANGEME" \
   dkincaid/leo-vetnotes-service \
   --brokerUrl "tcp://leo-broker:61616"
 ```
