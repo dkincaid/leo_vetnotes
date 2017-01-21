@@ -4,6 +4,7 @@
 
 # Starting up the stack
 The Leo stack consists of three components. 
+
 1. The *Broker* which handles messages to and from the other two components.
 2. The *Service* which receives documents and processes them through a UIMA pipeline and returns the CAS result. The service listens for messages coming through the *Broker* and processes them.
 3. The *Client* which reads documents, sends them to the *Broker* for processing by the *Service* and also receives the resulting CAS back from the *Service*.
@@ -30,7 +31,8 @@ docker run --net leonet --name ctakes-service \
 ```
 
 ## Client
-Here you need to customize a few settings. 
+Here you need to customize a few settings.
+
 1. Map the `/data-in` container volume to a local directory containing a file that you want to read. 
 2. Map the `/data-out` container volume to a local directory that you want the output written to.
 3. Set `--inputFile` to the file you want to read, `--outputDir` to `/data-out`
