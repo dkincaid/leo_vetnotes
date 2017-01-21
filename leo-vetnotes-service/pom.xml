@@ -61,12 +61,18 @@
             <groupId>org.apache.ctakes</groupId>
             <artifactId>ctakes-type-system</artifactId>
             <version>${ctakes.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.apache.uima</artifactId>
+                    <groupId>uimaj-core</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.apache.ctakes</groupId>
             <artifactId>ctakes-core</artifactId>
-            <version>3.2.3-SNAPSHOT</version>
+            <version>${ctakes.version}</version>
         </dependency>
 
         <dependency>

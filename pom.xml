@@ -14,7 +14,7 @@
     </modules>
 
     <properties>
-        <uima.version>2.6.0</uima.version>
+        <uima.version>2.9.0</uima.version>
         <ctakes.version>3.2.3-SNAPSHOT</ctakes.version>
         <leo.version>2017.01.2</leo.version>
         <slf4j.version>1.7.21</slf4j.version>

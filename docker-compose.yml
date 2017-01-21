@@ -1,0 +1,17 @@
+version: '3'
+services:
+  broker:
+    image: dkincaid/leo-broker
+    ports:
+     - "61616:61616"
+
+  service:
+    image: dkincaid/leo-vetnotes-service
+    depends_on:
+      - broker
+
+  client:
+    image: dkincaid/leo-vetnotes-client
+    depends_on:
+      - broker
+
