@@ -1,0 +1,4 @@
+urlid vetdict
+url jdbc:hsqldb:file:/home/davek/apps/apache-ctakes-3.2.2/resources/org/apache/ctakes/dictionary/lookup/fast/vetdict/vetdict;shutdown=true
+username sa
+password
