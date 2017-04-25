@@ -36,6 +36,8 @@ for the sake of ide ease-of-use, the user should be aware of these hsql limitati
          <property key="rareWordTable" value="cui_terms"/>
          <property key="umlsUrl" value="https://uts-ws.nlm.nih.gov/restful/isValidUMLSUser"/>
          <property key="umlsVendor" value="NLM-6515182895"/>
+         <property key="umlsUser" value="CHANGE_ME"/>
+         <property key="umlsPass" value="CHANGE_ME"/>
       </properties>
    </dictionary>
 </dictionaries>
@@ -49,15 +51,15 @@ for the sake of ide ease-of-use, the user should be aware of these hsql limitati
          <property key="jdbcUrl" value="jdbc:hsqldb:file:resources/org/apache/ctakes/dictionary/lookup/fast/vetdict/vetdict"/>
          <property key="jdbcUser" value="sa"/>
          <property key="jdbcPass" value=""/>
-         <property key="rareWordTable" value="cui_terms"/>
          <property key="umlsUrl" value="https://uts-ws.nlm.nih.gov/restful/isValidUMLSUser"/>
          <property key="umlsVendor" value="NLM-6515182895"/>
+         <property key="umlsUser" value="CHANGE_ME"/>
+         <property key="umlsPass" value="CHANGE_ME"/>
          <property key="tuiTable" value="tui"/>
          <property key="prefTermTable" value="prefTerm"/>
 <!-- Optional tables for optional term info.
 Uncommenting these lines alone may not persist term information;
 persistence depends upon the TermConsumer.  -->
-         <property key="lncTable" value="text"/>
          <property key="rxnormTable" value="long"/>
          <property key="snomedct_usTable" value="long"/>
          <property key="snomedct_vetTable" value="long"/>
