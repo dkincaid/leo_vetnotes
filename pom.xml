@@ -16,7 +16,7 @@
     <properties>
         <uima.version>2.9.0</uima.version>
         <ctakes.version>4.0.0</ctakes.version>
-        <leo.version>2017.01.3</leo.version>
+        <leo.version>2017.03.0</leo.version>
         <slf4j.version>1.7.21</slf4j.version>
         <guava.version>19.0</guava.version>
         <avro.version>1.8.1</avro.version>
